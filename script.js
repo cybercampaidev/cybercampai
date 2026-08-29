@@ -10,20 +10,20 @@ const CALL_FOR_PAPERS_URL =
 const schedules = {
   conference: [
     ["08:00", "08:50", "Registration & morning coffee", "Foyer · Community", "Organising team", ["Collect your badge and explore the venue", "Community and partner zone opens", "Coffee before the opening session"]],
-    ["09:00", "09:45", "When AI becomes part of the attack", "Main stage · Keynote · EN", "Alex Morgan", ["How attack preparation and scaling are changing", "Where AI genuinely helps attackers—and where it is only hype", "What defenders need to change over the next 12 months"]],
+    ["09:00", "09:45", "Securing AI from experiment to production", "Main stage · Keynote · EN", "Alex Morgan", ["How the risk profile changes as AI moves into production", "Ownership across development, security and operations", "A practical baseline for the next 12 months"]],
     ["10:05", "10:40", "Prompt injection without the magic", "Track A · Security of AI · CZ", "Jana Nováková", ["A basic threat model for LLM applications", "Indirect prompt injection through a practical example", "The limits of filtering and layered defence"]],
-    ["10:50", "11:25", "AI in the SOC: what survived year one", "Track B · AI for Defence · CZ", "Martin Dvořák", ["Alert triage and context enrichment", "Where automation created more work", "Metrics for deciding whether to keep a solution"]],
-    ["11:45", "12:20", "Red teaming autonomous agents", "Main stage · Live demo · EN", "Sarah Chen", ["The attack surface of a tool-enabled agent", "Live demonstration of permission abuse", "Practical guardrails and monitoring"]],
+    ["10:50", "11:25", "AI in the SOC: what survived year one", "Track B · AI for Defense · CZ", "Martin Dvořák", ["Alert triage and context enrichment", "Where automation created more work", "Metrics for deciding whether to keep a solution"]],
+    ["11:45", "12:20", "Building an AI assistant practitioners can trust", "Main stage · Live demo · EN", "Sarah Chen", ["Turn a repetitive security task into a useful assistant", "Keep a human in control of sensitive actions", "Evaluate quality, cost and operational value"]],
     ["12:30", "13:30", "Lunch & community zone", "Foyer · Networking", "Cybercamp community", ["Lunch", "Lightning talks in the community zone", "CTF and partner meet-ups"]],
     ["13:40", "14:15", "Deploying a local model securely", "Track A · Engineering · CZ", "Petr Král", ["Choosing between a local model and an API", "Protecting data, models and infrastructure", "Audit trails and operational monitoring"]],
-    ["14:25", "15:00", "Deepfakes and identity verification", "Track B · Adversarial AI · EN", "Maya Patel", ["Current voice and image deepfake capabilities", "How common verification processes fail", "A practical mix of technical and procedural controls"]],
+    ["14:25", "15:00", "From policy to practice: governing AI use", "Track B · People & Governance · EN", "Maya Patel", ["Translate principles into everyday decisions", "Define ownership without blocking experimentation", "A lightweight governance model for real teams"]],
     ["15:30", "16:15", "Incident response for an AI application", "Main stage · Case study · CZ", "Lucie Horáková", ["What an incident in a generative AI application looks like", "Which logs were missing during the investigation", "Lessons for development, the SOC and service owners"]],
     ["16:35", "17:25", "Panel: who is accountable for secure AI?", "Main stage · Panel · CZ/EN", "4 guests + moderator", ["The responsibilities of vendors, developers and operators", "Regulation versus practical risk management", "Audience questions"]],
     ["19:00", "23:00", "Campfire afterparty", "Networking · Informal programme", "All attendees", ["Informal networking", "Community meet-ups", "Space to continue conversations from the programme"]]
   ],
   workshops: [
     ["09:00", "09:40", "Registration & lab check", "Workshop rooms · Setup", "Lab team", ["Check the working environment", "Connect to the lab infrastructure", "Workshop safety rules"]],
-    ["10:00", "12:30", "Attacking LLM applications in practice", "Lab 1 · Advanced · CZ", "Tomáš Jelínek", ["Map inputs and data flows", "Prompt injection and data exfiltration", "Design and verify layered defences"]],
+    ["10:00", "12:30", "Testing LLM applications before release", "Lab 1 · Advanced · CZ", "Tomáš Jelínek", ["Map inputs, permissions and data flows", "Test prompt injection and data exposure scenarios", "Design and verify layered defences"]],
     ["10:00", "12:30", "Build an AI assistant for your SOC", "Lab 2 · Intermediate · EN", "Emma Wilson", ["Secure alert processing", "Grounding with internal sources", "Quality evaluation and sensitive data protection"]],
     ["12:30", "13:30", "Lunch", "Shared break", "—", ["Lunch for workshop attendees", "Time for consultations with instructors"]],
     ["13:30", "16:30", "Threat modelling an autonomous agent", "Lab 1 · Intermediate · CZ", "Klára Veselá", ["Model assets, trust boundaries and permissions", "Simulate an agent abusing its tools", "Controls and diagnostic scenarios"]],
