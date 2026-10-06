@@ -55,31 +55,19 @@ button,a { -webkit-tap-highlight-color:transparent; }
 .section-note { max-width:570px; margin:0; color:var(--muted); line-height:1.65; }
 .section-note strong { color:var(--ink); }
 
-.schedule { background:var(--white); }
-.schedule-tabs { display:grid; margin-top:38px; grid-template-columns:1fr 1fr; border-bottom:1px solid var(--line); }
-.schedule-tabs button { min-height:58px; padding:0 20px; color:#758094; border:1px solid var(--line); border-bottom:0; background:transparent; cursor:pointer; font-weight:700; text-align:left; text-transform:uppercase; }
-.schedule-tabs button + button { border-left:0; }
-.schedule-tabs button span { margin-right:16px; font-size:9px; letter-spacing:.15em; }
-.schedule-tabs button.active { color:var(--white); border-color:var(--blue); background:var(--blue); }
-.schedule-item { border-bottom:1px solid var(--line); }
-.schedule-item summary { position:relative; display:grid; min-height:88px; align-items:center; grid-template-columns:95px minmax(0,1fr) 190px 32px; gap:18px; cursor:pointer; list-style:none; }
-.schedule-item summary::-webkit-details-marker { display:none; }
-.schedule-time { display:flex; flex-direction:column; gap:3px; }
-.schedule-time time { color:var(--blue); font-size:18px; font-weight:700; }
-.schedule-time span { color:#9ba5b4; font-size:10px; }
-.schedule-title h3 { margin:0; font-size:18px; }
-.schedule-title p { margin:6px 0 0; color:var(--muted); font-size:14px; }
-.schedule-speaker { padding-left:20px; border-left:1px solid var(--line); }
-.schedule-speaker span { display:block; margin-bottom:5px; color:#98a2b1; font-size:8px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
-.schedule-speaker strong { font-size:13px; }
-.schedule-toggle { color:var(--blue); font-size:27px; text-align:center; transition:transform 160ms ease; }
-.schedule-item[open] .schedule-toggle { transform:rotate(45deg); }
-.slot-index { display:none; }
-.schedule-agenda { display:grid; grid-template-columns:95px 1fr; gap:18px; padding:20px 52px 22px 0; background:#eef4ff; }
-.schedule-agenda>span { color:var(--blue); font-size:9px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
-.schedule-agenda ul { display:grid; gap:9px; margin:0; padding:0; list-style:none; }
-.schedule-agenda li { position:relative; padding-left:18px; color:#49566a; line-height:1.5; }
-.schedule-agenda li::before { position:absolute; top:.7em; left:0; width:8px; height:2px; content:""; background:var(--blue); }
+.speakers { background:var(--white); }
+.speaker-grid { display:grid; margin-top:38px; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+.speaker-card { display:flex; min-width:0; min-height:148px; align-items:flex-start; gap:18px; padding:24px; background:var(--paper); border:1px solid var(--line); }
+.speaker-initials { display:grid; width:58px; height:58px; flex:0 0 58px; place-items:center; color:var(--white); background:var(--blue); font-size:16px; font-weight:800; letter-spacing:.08em; }
+.speaker-copy { min-width:0; }
+.speaker-company { margin:0 0 8px; color:var(--blue); font-size:9px; font-weight:800; letter-spacing:.13em; line-height:1.4; text-transform:uppercase; }
+.speaker-card h3 { margin:0 0 9px; font-size:21px; line-height:1.18; }
+.speaker-card h3 a { transition:color 160ms ease; }
+.speaker-card h3 a::after { margin-left:5px; color:var(--blue); content:"↗"; font-size:.62em; vertical-align:top; }
+.speaker-card h3 a:hover,.speaker-card h3 a:focus-visible { color:var(--blue); }
+.speaker-card h3 a:focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
+.speaker-card h3 span { white-space:nowrap; }
+.speaker-role { margin:0; color:var(--muted); font-size:14px; line-height:1.45; }
 
 .organizers { background:#eef2f7; }
 .organizer-grid { display:grid; margin-top:38px; grid-template-columns:1fr 1fr; gap:16px; }
@@ -135,6 +123,7 @@ footer { padding:38px 0; color:var(--white); background:#030a16; }
   .hero-layout { gap:42px; grid-template-columns:1.2fr .8fr; }
   .hero h1 { font-size:66px; }
   .partner-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .speaker-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .participation-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .participation article:nth-child(3) { grid-column:1/-1; min-height:260px; border-top:0; border-left:1px solid rgba(255,255,255,.3); }
 }
@@ -171,13 +160,8 @@ footer { padding:38px 0; color:var(--white); background:#030a16; }
   .topic-grid article { min-height:145px; }
   .partner-grid { grid-template-columns:1fr; }
   .partner-logo-slot { min-height:112px; }
-  .schedule-tabs button { padding:0 12px; font-size:13px; }
-  .schedule-tabs button span { display:block; margin:0 0 4px; }
-  .schedule-item summary { grid-template-columns:70px 1fr 32px; gap:10px; padding:18px 0; }
-  .schedule-title h3 { font-size:16px; }
-  .schedule-speaker { grid-column:2; padding:9px 0 0; border-top:1px solid var(--line); border-left:0; }
-  .schedule-toggle { grid-column:3; grid-row:1; }
-  .schedule-agenda { grid-template-columns:70px 1fr; gap:10px; padding:22px 0; }
+  .speaker-grid { grid-template-columns:1fr; }
+  .speaker-card { min-height:0; padding:20px; }
   .organizer-grid article { min-height:auto; padding:22px; }
   .organizer-mark { width:62px; height:62px; }
   .organizer-photo { width:88px; flex-basis:88px; }
