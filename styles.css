@@ -56,18 +56,35 @@ button,a { -webkit-tap-highlight-color:transparent; }
 .section-note strong { color:var(--ink); }
 
 .speakers { background:var(--white); }
-.speaker-grid { display:grid; margin-top:38px; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
-.speaker-card { display:flex; min-width:0; min-height:148px; align-items:flex-start; gap:18px; padding:24px; background:var(--paper); border:1px solid var(--line); }
-.speaker-initials { display:grid; width:58px; height:58px; flex:0 0 58px; place-items:center; color:var(--white); background:var(--blue); font-size:16px; font-weight:800; letter-spacing:.08em; }
-.speaker-copy { min-width:0; }
-.speaker-company { margin:0 0 8px; color:var(--blue); font-size:9px; font-weight:800; letter-spacing:.13em; line-height:1.4; text-transform:uppercase; }
-.speaker-card h3 { margin:0 0 9px; font-size:21px; line-height:1.18; }
-.speaker-card h3 a { transition:color 160ms ease; }
-.speaker-card h3 a::after { margin-left:5px; color:var(--blue); content:"↗"; font-size:.62em; vertical-align:top; }
-.speaker-card h3 a:hover,.speaker-card h3 a:focus-visible { color:var(--blue); }
-.speaker-card h3 a:focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
-.speaker-card h3 span { white-space:nowrap; }
-.speaker-role { margin:0; color:var(--muted); font-size:14px; line-height:1.45; }
+.talk-grid { display:grid; margin-top:38px; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; align-items:start; }
+.talk-card { display:flex; min-width:0; padding:26px; background:var(--paper); border:1px solid var(--line); flex-direction:column; }
+.talk-main { display:contents; }
+.talk-card-head { display:flex; order:1; align-items:center; justify-content:space-between; gap:16px; color:var(--blue); font-size:9px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+.talk-card h3 { max-width:500px; min-height:5.8em; order:2; margin:18px 0 15px; font-size:clamp(20px,2vw,27px); line-height:1.16; }
+.talk-annotation { min-height:144px; order:3; padding:0 0 22px; border-bottom:1px solid var(--line); }
+.talk-annotation p { margin:0; color:#40506a; font-size:15px; line-height:1.6; }
+.talk-speakers { display:flex; order:4; align-items:flex-start; gap:14px; margin-top:auto; padding-top:22px; }
+.speaker-profile { min-width:0; flex:1 1 0; background:var(--white); border:1px solid var(--line); }
+.speaker-profile summary { list-style:none; }
+.speaker-profile summary::-webkit-details-marker { display:none; }
+.talk-person { display:grid; min-width:0; align-items:center; grid-template-columns:76px minmax(0,1fr) 22px; gap:14px; padding:12px; cursor:pointer; transition:background 160ms ease; }
+.talk-photo { position:relative; width:76px; aspect-ratio:4/5; overflow:hidden; color:var(--white); background:var(--blue); border:1px solid var(--blue); isolation:isolate; }
+.talk-photo::after { position:absolute; z-index:2; top:0; right:0; width:20px; height:5px; content:""; background:var(--white); }
+.talk-photo img,.talk-photo>span { position:absolute; inset:0; width:100%; height:100%; }
+.talk-photo img { z-index:1; display:block; object-fit:cover; object-position:center top; }
+.talk-photo>span { display:grid; place-items:center; font-size:17px; font-weight:800; letter-spacing:.08em; }
+.talk-person strong { display:block; font-size:16px; line-height:1.25; }
+.talk-person-copy>span { display:block; margin-top:6px; color:var(--muted); font-size:12px; line-height:1.4; }
+.talk-person-copy small { display:block; margin-top:8px; color:var(--blue); font-size:9px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+.speaker-profile-toggle { position:relative; width:22px; height:22px; border:1px solid var(--blue); }
+.speaker-profile-toggle::before,.speaker-profile-toggle::after { position:absolute; top:50%; left:50%; width:10px; height:2px; content:""; background:var(--blue); transform:translate(-50%,-50%); transition:transform 160ms ease; }
+.speaker-profile-toggle::after { transform:translate(-50%,-50%) rotate(90deg); }
+.speaker-profile[open] .speaker-profile-toggle::after { transform:translate(-50%,-50%) rotate(0); }
+.speaker-profile summary:hover,.speaker-profile summary:focus-visible { background:#eef4ff; }
+.speaker-profile summary:focus-visible { outline:2px solid var(--blue); outline-offset:-2px; }
+.speaker-bio { padding:16px; background:#eaf1ff; border-top:1px solid var(--line); }
+.speaker-bio p { margin:0; color:#40506a; font-size:14px; line-height:1.6; }
+.speaker-bio a { display:inline-block; margin-top:13px; color:var(--blue); font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
 
 .organizers { background:#eef2f7; }
 .organizer-grid { display:grid; margin-top:38px; grid-template-columns:1fr 1fr; gap:16px; }
@@ -123,7 +140,6 @@ footer { padding:38px 0; color:var(--white); background:#030a16; }
   .hero-layout { gap:42px; grid-template-columns:1.2fr .8fr; }
   .hero h1 { font-size:66px; }
   .partner-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .speaker-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .participation-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .participation article:nth-child(3) { grid-column:1/-1; min-height:260px; border-top:0; border-left:1px solid rgba(255,255,255,.3); }
 }
@@ -141,6 +157,8 @@ footer { padding:38px 0; color:var(--white); background:#030a16; }
   .hero-layout { min-height:auto; padding:54px 0; }
   .hero-symbol { max-width:500px; min-height:auto; }
   .topic-grid,.organizer-grid,.participation-grid { grid-template-columns:1fr; }
+  .talk-grid { grid-template-columns:1fr; }
+  .talk-card h3,.talk-annotation { min-height:0; }
   .participation article:nth-child(3) { grid-column:auto; min-height:auto; }
   .participation article+article { border-top:0; border-left:1px solid rgba(255,255,255,.3); }
   .footer-layout { align-items:start; grid-template-columns:1fr 1fr; }
@@ -160,8 +178,10 @@ footer { padding:38px 0; color:var(--white); background:#030a16; }
   .topic-grid article { min-height:145px; }
   .partner-grid { grid-template-columns:1fr; }
   .partner-logo-slot { min-height:112px; }
-  .speaker-grid { grid-template-columns:1fr; }
-  .speaker-card { min-height:0; padding:20px; }
+  .talk-card { padding:22px; }
+  .talk-card h3 { font-size:22px; }
+  .talk-speakers { flex-direction:column; }
+  .speaker-profile { width:100%; }
   .organizer-grid article { min-height:auto; padding:22px; }
   .organizer-mark { width:62px; height:62px; }
   .organizer-photo { width:88px; flex-basis:88px; }
