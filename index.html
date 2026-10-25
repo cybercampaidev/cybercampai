@@ -199,8 +199,17 @@ His current focus includes AI compliance, AI security, and integrating AI into e
             </div>
           </div>
           <div class="talk-annotation">
-            <p>This keynote examines how visibility, asset management, access control, AI gateways and data
-              anonymization enable verifiable AI security and compliance.</p>
+            <p>Everyone is talking about securing AI models, agents, and applications. But what if the biggest obstacle to AI security isn't AI at all?
+<br><br>
+Before organizations can meaningfully address AI security and compliance, they need to answer some uncomfortable questions: Do we know what assets we have? Where our data flows? Who or what has access to it? And can we prove that our security controls actually work?
+<br><br>
+AI introduces new challenges, but it doesn't make the fundamentals of IT security obsolete. It makes getting them right even more important.
+<br><br>
+In this keynote, we'll explore why visibility, asset management, and control are prerequisites for secure AI adoption. We'll look at practical approaches to handling credentials, enforcing boundaries through AI gateways, and protecting sensitive information through data anonymization.
+<br><br>
+Most importantly, we'll challenge the assumption that security depends on trusting every system, model, agent, or user to behave correctly.
+<br><br>
+Because when you can verify your controls, you don't have to rely on trust.</p>
           </div>
         </article>
 
@@ -221,9 +230,11 @@ His current focus includes AI compliance, AI security, and integrating AI into e
             </div>
           </div>
           <div class="talk-annotation">
-            <p>A 25,000-trial study shows that diverse, inexpensive models outperform single models in detecting
-              vulnerabilities, while stateful C bugs remain difficult to rediscover.</p>
-          </div>
+            <p>An LLM vulnerability scanner can miss a real bug on one run and find it on the next without signaling uncertainty.
+<br><br>
+We measured this failure in 25,000 trials across 50 models on a benchmark selected for on-and-off detection. A separate 7,600-run study tested rediscovery of 95 disclosed CVEs in OpenSSL, curl, GnuTLS and five other heavily audited projects.
+<br><br>
+The results challenge the usual "pick the strongest model" strategy: repeated passes help, but diverse inexpensive models cover complementary blind spots and outperform a costlier single model. We will show our open-source scanner finding - and missing - the same bug, reveal which intuitive pipeline additions failed to justify their cost, and examine the gap between broadly detectable JS and PHP bugs and stubbornly hard stateful C vulnerabilities. Attendees will learn how to measure cumulative detection, compare complementary coverage and identify cases needing other techniques, using the public benchmark, harness and scanner.
         </article>
 
         <article class="talk-card">
@@ -243,8 +254,7 @@ His current focus includes AI compliance, AI security, and integrating AI into e
             </div>
           </div>
           <div class="talk-annotation">
-            <p>Explore how context poisoning attacks target AI agents, why they are difficult to detect and defend
-              against, and which mitigation strategies are emerging.</p>
+            <p>Enough theory. Let's roll up our sleeves and get practical. In this workshop, we'll have a look at the most practical, least technically challenging open-source tools which help us protect us and our agents from harm. We'll cover OpenClaw, Hermes, Claude Code and Codex, and learn how to prevent these agents from accidentally deleting or leaking your data, while preserving their usability.</p>
           </div>
         </article>
 
@@ -265,8 +275,21 @@ His current focus includes AI compliance, AI security, and integrating AI into e
             </div>
           </div>
           <div class="talk-annotation">
-            <p>A production case study on using agentic AI, deterministic pipelines and offline evaluation to detect
-              malicious domains and improve threat intelligence outcomes.</p>
+            <p>A year ago, we built a small AI agent in n8n to help our threat intelligence team decide whether a domain was malicious or a false positive. It worked well enough that it kept getting more responsibility. Today it judges domains from real customer DNS traffic every day, publishes the malicious ones to our blocklist, and acts as the ground truth when we benchmark Whalebone against competitors. This talk follows that journey and what we learned along the way.
+<br><br>
+We'll start with the first version: an orchestrator agent backed by sub-agents, each summarizing one threat intelligence source such as VirusTotal, Safe Browsing or our own IoC database. Then we'll show how and why we redesigned the pipeline. Evidence got lost between agents and biases crept in, so we moved data gathering and normalization into deterministic code and kept the LLM for what it does best: weighing the evidence and making a call. Along the way we hit plenty of pitfalls. API errors quietly became "benign" verdicts. The agent was confidently wrong about legitimate infrastructure. And the agent's own mistakes fed back into the system it was supposed to measure, while our metrics went up and looked like success.
+<br><br>
+Running this in production also meant living with hard limits: daily API quotas, a fixed token budget, and a pipeline that has to finish in time to be useful. We'll share how those constraints shaped the design, from caching and retries to deciding which sources are worth a call.
+<br><br>
+To know whether a change actually helped, we built an offline test harness. It uses a hand-labelled dataset and replayable API responses, so we can compare prompt versions fairly. We'll explain how we created the test data, and why we check how stable the verdicts are, not just how accurate.
+<br><br>
+We'll also compare our heavily tuned prompt with a version built on Jev, a specialized model that answers structured, typed questions instead of following one long prompt. It came close in accuracy at a fraction of the time. That raised an honest question about where prompt engineering pays off and where it doesn't.
+<br><br>
+Underneath the technical story is a shift in how we think about AI work: from output to outcome. Early on, the approach was close to "throw it at the AI and see what comes back", and the AI's verdict was the result. A verdict is only an output, though. The outcome we care about is a correct blocking decision, and the AI rarely gets there alone. We are now moving to a model where the AI provides one classification signal, and that signal is combined with other, cheaper and more predictable signals into a final score. This changes where AI belongs in the pipeline and how much we ask of it.
+<br><br>
+That leads to a broader question: how to organize work that uses AI without "tokenmaxxing", where every problem gets more prompts, more agents and more tokens. We'll share how we decide what to give a model and what to keep in plain code, how to scope AI tasks so their results can be measured and combined, and how to keep the team focused on outcomes rather than on clever prompts.
+<br><br>
+The talk closes with the lessons we took away from a year of running agentic AI in production, and where we plan to take it next.</p>
           </div>
         </article>
 
@@ -288,8 +311,11 @@ At Emplifi, MV works with the Innovations team on the security and reliability o
             </div>
           </div>
           <div class="talk-annotation">
-            <p>Why prompt injection detectors fail in production, and how better datasets, hard negatives,
-              fine-tuning, calibration and thresholding can improve them.</p>
+            <p>Training a detector with high accuracy is easy, making it reliably work in real life is hard. Over the past months I've trained and evaluated local prompt injection detectors, and learned that the benchmark is usually the weakest part of the pipeline: models learn trigger phrases and dataset artifacts instead of what an injection actually is. Thus, prompt injection detectors routinely report 95–99% accuracy on public benchmarks, and still fail in practice. I tried to solve the problem in the following way.
+<br><br>
+This talk covers three things. First, an exploratory analysis of public prompt-attack datasets: what is wrong with them, and why models trained on them look great on tests and fail on real traffic. Second, generating better data: attacks that look like ordinary user conversation and hard negatives that look malicious but aren’t, with practical tips and tricks. Third, use that data for fine-tuning with an eye on what matters in production: calibration, threshold setting, and the false-positive rate that decides whether your detector stays switched on.
+<br><br>
+Here are my mistakes for you to avoid and have a chance to make your own instead.</p>
           </div>
         </article>
 
@@ -313,8 +339,18 @@ Developer Advocate at UpCloud, conference organizer, community builder, co-autho
             </div>
           </div>
           <div class="talk-annotation">
-            <p>A live demonstration of an autonomous AI agent running a dangerous task inside Docker Sandboxes, with
-              per-agent microVMs and controlled file, network and secret boundaries.</p>
+            <p>Agentic AI. The dream. We gave AI agents our terminals. Then our repositories. Then our credentials. And then we clicked "allow all", because nobody has time to approve every npm install.
+<br><br>
+And the dream became a nightmare.
+<br><br>
+Let's be honest: YOLO mode is how most of us work now Prove me I am wrong!
+The question isn't if your agent will do something unexpected and dangerous. The question is where it will happen, and how quickly.
+<br><br>
+Well, we can contain agents in containers, don't we? Well, yes, containers are great tool, I love them, I'm a Docker Captain after all. But a container shares the kernel with your machine, and the code inside was written by an agent a few seconds ago. Nobody reviewed it. Not even the agent.
+<br><br>
+In this session we do something irresponsible on purpose. I'll give an AI agent full autonomy and a very bad idea, and we'll watch it try. Live. Inside Docker Sandboxes: a microVM per agent, its own kernel, its own Docker daemon, and boundaries for files, network and secrets set before the agent even starts.
+<br><br>
+Will my laptop survive? Join me and find out.</p>
           </div>
         </article>
 
@@ -337,8 +373,11 @@ He is the author of The Unconstrained Machine: How to Control AI Before It Contr
             </div>
           </div>
           <div class="talk-annotation">
-            <p>A six-domain, evidence-weighted method for scoring AI model assurance, applying overriding gates and
-              evaluating specific model artifacts rather than model families.</p>
+            <p>A year ago, most enterprise AI ran through a frontier lab's API. That has changed fast. Open-weight models now carry the majority of AI traffic, not because they're better, but because the price gap with frontier models has become impossible to ignore, and because weights an organization already holds can't be deprecated, repriced, or quietly updated on someone else's schedule. By July 2026, Chinese-developed models held all five top spots on OpenRouter by token volume and carried more than 60% of the platform's traffic, a reversal from roughly 70% US dominance a year earlier. The shift arrived faster than most review processes could keep up, and in many organizations it arrived without security being asked first.
+<br><br>
+The problem is what's missing when these models show up: no contract, no support channel, no company whose reputation is riding on how the model behaves. An academic analysis of the largest public model repository found that roughly 60% of its 1.5 million models carry no documentation at all, and fewer than 15% publish accuracy details. When a review team goes looking for evidence, most of the time it was never produced. Internally, we measured the same gap: UltraViolet Cyber's AISec Study found 8 of 10 organizations have an approved model trust policy, while zero of ten have a fully established model registry with provenance, despite all ten attempting it. The policy exists. The engineering to enforce it doesn't.
+<br><br>
+This session introduces a method for closing that gap: a six-domain assurance score (provenance and supply chain, data handling, technical security posture, access and integration risk, operational maturity, evaluation and known behavior), each domain rated 1 to 5 against a written rubric, with an evidence-confidence label attached (unverified, documented, or independently verified) so a 4-out-of-5 built on unverified claims doesn't read the same as a 4-out-of-5 built on reproduced testing. Four gating conditions override the composite entirely, regardless of how the other domains scored. The talk closes on a worked example that produced a result we didn't expect going in: for the same model, with identical weights, the assurance score crossed a full confidence band depending on which distribution was evaluated, which is the reason this method attaches to specific artifacts rather than to model families.</p>
           </div>
         </article>
 
@@ -361,8 +400,19 @@ Samet focuses on turning complex technical behavior into clear, testable, and op
             </div>
           </div>
           <div class="talk-annotation">
-            <p>How attackers can hijack enterprise AI agents through prompt injection and untrusted inputs, exploiting
-              delegated permissions and tool integrations—and how defenders can mitigate the risk.</p>
+            <p>As enterprise AI agents become increasingly integrated with identity providers, SaaS platforms, and internal APIs, they introduce a new security challenge: autonomous systems operating with delegated enterprise permissions.
+<br><br>
+What happens when an attacker doesn't need to steal credentials because an AI agent already has the permissions needed to perform their intended actions?
+<br><br>
+Building on identity-first adversary emulation research previously presented at DEF CON 34, this session explores how attackers may manipulate AI agents through prompt injection, untrusted content, and malicious tool responses to influence otherwise legitimate workflows.
+<br><br>
+Through a practical demonstration in a controlled enterprise environment, we will explore a representative agent-hijacking scenario, examining how an AI agent processes untrusted instructions, interacts with privileged tools, and potentially performs actions beyond the legitimate user's intent.
+<br><br>
+We will also discuss the security boundaries involved, including delegated authorization, excessive permissions, and the risks introduced by agent-to-tool integrations.
+<br><br>
+Finally, the session will examine practical defensive approaches such as least-privilege access, tool-call authorization, human approval for sensitive operations, and monitoring of agent activity.
+<br><br>
+Attendees will gain a clear understanding of how AI agents can extend traditional identity attack surfaces, what makes these attacks possible, and how security teams can begin evaluating and mitigating these risks.</p>
           </div>
         </article>
 
@@ -384,8 +434,9 @@ Earlier in his career Caleb spent three years with Cylance Professional Services
             </div>
           </div>
           <div class="talk-annotation">
-            <p>A framework using AI, repurposed phones and security devices to passively detect, illuminate and
-              triangulate signal activity around a property at the hardware-address level.</p>
+            <p>I came back from the DEFCON security conference having learned I could point Claude at a conference badge via usb-c like pointing R2D2 at a door. And there is a solid chance AI has surpassed that tech already, as current AI would have 100% rewritten the firmware for the door. A few weeks after returning from DEFCON some unknown entity cut down a bamboo plant on my property. This happened out of camera and visual range. I have no idea who did it, why, or when it happened. I possessed no instrument that could have told me, or so I thought.
+<br><br>
+While staring at a pile of old android phones on my desk, I considered the thought: "These all generate and receive a variety of signals... I wonder." The truth is nobody leaves home without a signal profile, and those signal profiles transit your legal dwelling perimeter every single day. With my new badge hacking data in mind, I dusted off every old phone and security device in the house and had Claude assimilate them into a passive signal perimeter illumination and triangulation system. This talk is about building a framework that illuminates your local signal perimeter in a way that allows you to actually know the proper what, where, and when of interactions with your signal perimeter at a hardware address level using AI and hacker/malware analyst logic.</p>
           </div>
         </article>
 
@@ -408,8 +459,20 @@ He builds and open-sources the tools he uses himself, including Seneschal, the b
             </div>
           </div>
           <div class="talk-annotation">
-            <p>Meet Seneschal, an open-source broker that limits AI agents through revocable permissions, human
-              approvals, append-only actions and protection against prompt injection.</p>
+            <p>I gave an AI agent my email, calendar and files. It reads what I've granted it, drafts anything, and can't send, book or share a thing without me tapping "approve" on my phone.
+<br><br>
+That tap is the security model. Not a smarter model, not a better prompt.
+<br><br>
+This talk walks through Seneschal, the open-source broker I built and use daily. The agent never holds the Google tokens - the broker does. Reads happen inside a narrow, revocable grant. Anything outside it, and every send, becomes a request with an approval link that expires if I ignore it.
+<br><br>
+Then the parts that hurt:
+- The science of why no prompt can make an agent safe from prompt injection - and why the guarantee has to live outside the model.<br>
+- Why a hundred steps at 96% each succeed end to end 1.7% of the time, and why that keeps a human in the loop no matter how good the model gets.<br>
+- Why anything an agent writes should be append-only, so a bad run is a query to undo, not an archaeology dig.<br>
+- Why Google's Restricted-scope wall stops this from becoming a hosted product (and what that tells you about who should hold the keys).<br>
+- A live attempt to hijack the agent with a hostile email - and where it stops.<br>
+<br><br>
+You'll leave with a permission checklist for any agent that touches real systems: who holds the keys, what it can do alone, what needs a human, and what it can never undo.</p>
           </div>
         </article>
 
@@ -432,8 +495,15 @@ His talks combine deep technical experience, real-world failures, storytelling, 
             </div>
           </div>
           <div class="talk-annotation">
-            <p>Practical defenses for prompt injection in LLM applications, including NLP input validation, prompt
-              tracing, threat modeling and layered security controls.</p>
+            <p>Are you interested in AI security and building resilient applications? This session focuses on protecting language models against prompt injection and related attacks.
+<br><br>
+We will explore deployment approaches, NLP-based input validation, prompt tracing, threat modeling, and practical countermeasures for securing applications built on large language models.
+<br><br>
+Prompt injection is becoming an increasingly important threat to modern AI applications, affecting both their reliability and security. The session explains what prompt injection is, why organizations should take it seriously, and how applications using LLMs can be designed with multiple layers of protection.
+<br><br>
+You will learn practical strategies for building applications that are more resistant to prompt manipulation and malicious inputs, including input validation, additional LLM security controls, prompt tracing, and threat modeling.
+<br><br>
+The session combines practical examples with storytelling and gamification to make AI security approachable and memorable</p>
           </div>
         </article>
 
@@ -457,8 +527,215 @@ His interests include offensive security, AI agents, compilers, and the intersec
             </div>
           </div>
           <div class="talk-annotation">
-            <p>An engineering account of building Invicti's autonomous AI pentesting solution, examining its
-              capabilities, limitations, architecture and impact on offensive security.</p>
+            <p>Can AI agents really perform penetration testing, or is AI-powered hacking just another wave of cybersecurity hype?
+Having spent years working on traditional Dynamic Application Security Testing (DAST) technologies, I had the opportunity to be involved in building Invicti's AI-powered penetration testing solution from its very beginning.<br>
+In this session, I'll share a behind-the-scenes look at what it actually takes to build an autonomous AI pentesting system, from early ideas and prototypes to a production-ready solution.<br>
+We'll explore the engineering challenges, architectural decisions, unexpected limitations, and lessons learned along the way. What worked surprisingly well? What didn't work as expected? Where do traditional security scanners still outperform AI agents, and where does AI introduce genuinely new capabilities?<br>
+Beyond the technical aspects, we'll take a critical look at the bigger picture. How capable are today's AI pentesting agents? Do they represent a real cybersecurity threat? Is investing in AI-powered security testing worth it, or are expectations running ahead of reality?<br>
+Finally, I'll share my perspective on where autonomous security testing is heading and how AI might reshape the future of offensive security.<br>
+This is not a product pitch. It's a practical engineering story about building AI pentesting technology, exploring its real capabilities, limitations, and future beyond the hype.</p>
+          </div>
+        </article>
+		
+		<article class="talk-card">
+          <div class="talk-main">
+            <div class="talk-card-head"><span>Confirmed session</span></div>
+            <h3>Evolution of Offensive AI: From First Prompt to Autonomous Hacking</h3>
+            <div class="talk-speakers">
+              <details class="speaker-profile">
+                <summary class="talk-person">
+                <div class="talk-photo"><span aria-hidden="true">PZ</span><img src="assets/speaker-patrik-zak.jpg"
+                    alt="Patrik Zak" loading="lazy" width="360" height="450" onerror="this.hidden=true"></div>
+                <div class="talk-person-copy"><strong>Patrik Žák</strong><span>RedTeam Lead and Co-Founder · SYSNETSHIELD</span><small>Speaker bio</small></div>
+                <span class="speaker-profile-toggle" aria-hidden="true"></span>
+                </summary>
+                <div class="speaker-bio"><p>I'm an ethical hacker specializing in infrastructure penetration testing and red teaming. For more than 10 years I've helped companies uncover weaknesses before attackers do.
+<br><br>
+I also regularly publish the "Security Sunday" newsletter, a weekly roundup of the latest cybersecurity news.  </p><a href="https://www.linkedin.com/in/zakpatrik" target="_blank" rel="noopener noreferrer">Patrik on LinkedIn ↗</a></div>
+              </details>
+            </div>
+          </div>
+          <div class="talk-annotation">
+            <p>When ChatGPT launched in November 2022, penetration testers saw a promising but deeply flawed assistant. One that hallucinated, refused offensive queries, and forgot context mid-conversation. In just over three years, the landscape has shifted beyond recognition. Purpose-built offensive wrappers like Harpy AI bypassed early guardrails. Gemini introduced million-token context windows, letting us feed entire codebases into a single prompt. Claude Code eliminated copy-paste workflows entirely, bringing autonomous agents and MCP server integrations directly into the terminal. And with Opus 4.6 in early 2026, we witnessed an AI agent achieve enterprise admin access autonomously in 22 hours.</p>
+          </div>
+        </article>
+		
+		<article class="talk-card">
+          <div class="talk-main">
+            <div class="talk-card-head"><span>Confirmed session</span></div>
+            <h3>Ink Only Machines Can Read: Hijacking AI Agents</h3>
+            <div class="talk-speakers">
+              <details class="speaker-profile">
+                <summary class="talk-person">
+                <div class="talk-photo"><span aria-hidden="true">EK</span><img src="assets/speaker-emil-khamedov.jpg"
+                    alt="Emil Khamedov" loading="lazy" width="360" height="450" onerror="this.hidden=true"></div>
+                <div class="talk-person-copy"><strong>Emil Khamedov</strong><span>AI & Quantitative Developer</span><small>Speaker bio</small></div>
+                <span class="speaker-profile-toggle" aria-hidden="true"></span>
+                </summary>
+                <div class="speaker-bio"><p>Emil Khamedov is a developer working at the intersection of AI systems and finance. As a quantitative developer at an investment firm, he engineered Nasdaq data pipelines and deployed MCP servers connecting Claude to live market data and strategy tooling. He has also built and deployed a production ERP for businesses in construction, oil and gas, and property rental; developed features for government digital services used by more than two million citizens; programmed Siemens PLC and SCADA systems for oil extraction sites; and launched an AI restaurant-management platform in Almaty and Astana that grounds LLM pricing recommendations in live web data. He holds a First Class BSc in Computer Science from the University of Birmingham and is currently studying for an MSc in Finance at UCL. His current research examines how hidden instructions in financial documents can manipulate AI investment tools. </p><a href="https://www.linkedin.com/in/emil-khamedov/" target="_blank" rel="noopener noreferrer">Emil on LinkedIn ↗</a></div>
+              </details>
+            </div>
+          </div>
+          <div class="talk-annotation">
+            <p>A company report now has two readers: the investor and the AI tool that summarises it. What happens when the document contains instructions only the machine can see?
+<br><br>
+AI agents increasingly read corporate disclosures and turn them into BUY, HOLD or SELL signals. This talk shows how instructions hidden inside a document (white text, tiny fonts, invisible HTML) survive standard text extraction and can steer what an LLM recommends, while a human reading the same page sees nothing unusual.
+<br><br>
+I will present a controlled experiment comparing clean and manipulated versions of real corporate disclosures across two leading LLMs and two attack types, and test whether a safeguard reduces the effect. Then a live demo: the same report, given to an AI trading agent twice.
+<br><br>
+You will leave with:<br>
+- how indirect prompt injection works in document-reading pipelines<br>
+- why trusted documents are a blind spot for AI agents<br>
+- practical defences you can add to any LLM system that reads PDFs or HTML
+<br><br>
+No finance background needed.</p>
+          </div>
+        </article>
+		
+		<article class="talk-card">
+          <div class="talk-main">
+            <div class="talk-card-head"><span>Confirmed session</span></div>
+            <h3>Shadow IT 2.0: Kenneth Accidentally Became a Vendor </h3>
+            <div class="talk-speakers">
+              <details class="speaker-profile">
+                <summary class="talk-person">
+                <div class="talk-photo"><span aria-hidden="true">JH</span><img src="assets/speaker-jonas-hermansson.jpg"
+                    alt="Jonas Hermansson" loading="lazy" width="360" height="450" onerror="this.hidden=true"></div>
+                <div class="talk-person-copy"><strong>Jonas Hermansson</strong><span>Jonas Hermansson Thought Leader · IT-HUSET</span><small>Speaker bio</small></div>
+                <span class="speaker-profile-toggle" aria-hidden="true"></span>
+                </summary>
+                <div class="speaker-bio"><p>AI, AI, AI - it dominates Jonas's workdays: business development, lectures, training, coffee machine conversations – yes, everything revolves around AI.
+<br><br>
+But that's not where it all began. Jonas started his journey in quality assurance and testing in 1994 and has built up expertise in leadership, change management, test organization, test strategy, and requirements management. Today, he mainly focuses on helping clients apply AI and develop their businesses with the support of revolutionary modern technology and the evolution of working methods. His background gives him a broad understanding and a unique starting point for integrating AI in a way that ensures quality and creates value for end-users.
+<br><br>
+Jonas's work encompasses everything from vision development and identifying opportunities to carrying out practical implementations and training in AI and quality. He has previously worked as a CEO, consulting manager, agile coach, test lead, change manager, line manager, test automation engineer, teacher, and mentor, as well as with requirements and requirements management.
+<br><br>
+Most often, you'll probably see Jonas as a speaker, teacher, or panelist. Hopefully, there will be opportunities to meet him at a lecture or conference soon... </p><a href="https://www.linkedin.com/in/jonasherman/" target="_blank" rel="noopener noreferrer">Jonas on LinkedIn ↗</a></div>
+              </details>
+            </div>
+          </div>
+          <div class="talk-annotation">
+            <p>Kenneth from Procurement is a fictional character.
+<br><br>
+Unfortunately, almost every organization already knows him.
+<br><br>
+On Monday, Kenneth asks an AI assistant to automate a spreadsheet. By Wednesday, he has built an application. By Friday, it is processing business-critical data, calling external APIs, making recommendations, and being used by twelve colleagues.
+<br><br>
+Nobody approved it. Nobody owns it. Nobody knows exactly how it works.
+<br><br>
+Congratulations, Kenneth. You are no longer just an employee. You are now an accidental software vendor.
+<br><br>
+Welcome to Shadow IT 2.0.
+<br><br>
+Traditional Shadow IT was mostly about unauthorized software and cloud services. Generative AI changes the scale of the problem. Employees can now create applications, agents, integrations, and automated business processes without waiting for an IT project, a development team, or an architecture review.
+<br><br>
+This is good news. It unlocks creativity, removes bottlenecks, and allows people closest to a problem to solve it.
+<br><br>
+It is also slightly terrifying.
+<br><br>
+The answer cannot simply be to ban Kenneth from building things. He has already discovered that AI can solve his problem in an afternoon, while the official project process estimates delivery sometime next year. If governance only creates friction, innovation will move somewhere governance cannot see it.
+<br><br>
+This session explores how organizations can replace invisible Shadow AI with a safe and supported path from idea to production. We will examine the architectural and organizational capabilities needed when ordinary employees become software creators:
+<br><br>
+• clear ownership and decision boundaries<br>
+• approved data sources, models, tools, and integrations<br>
+• reusable architectural building blocks<br>
+• automated security and compliance controls<br>
+• policy-as-code embedded in the delivery flow<br>
+• observability, auditability, and lifecycle management<br>
+• human review based on risk rather than organizational status<br>
+• an internal App Store where useful solutions can be discovered, governed, and reused<br>
+<br><br>
+During a short exercise, participants will assess Kenneth’s application and decide what should be encouraged, constrained, reviewed, or stopped. We will use that assessment to build a lightweight governance model that separates harmless experimentation from software that has quietly become business-critical infrastructure.
+<br><br>
+Participants will leave with a practical approach to AI governance that does not begin with “no.” Instead, it gives employees a paved road on which they can move quickly without accidentally creating an unmaintained distributed system between Procurement, Finance, and an AI service nobody has heard of.
+<br><br>
+Because the future of enterprise architecture is not only about what professional development teams build.
+<br><br>
+It is also about what Kenneth built during lunch.</p>
+          </div>
+        </article>
+		
+		<article class="talk-card">
+          <div class="talk-main">
+            <div class="talk-card-head"><span>Confirmed session</span></div>
+            <h3>Trust me, Bro: Social Engineering the AI-Agent Loop</h3>
+            <div class="talk-speakers">
+              <details class="speaker-profile">
+                <summary class="talk-person">
+                <div class="talk-photo"><span aria-hidden="true">DSP</span><img src="assets/speaker-danita-samuel-prakash.jpg"
+                    alt="Danita Samuel Prakash" loading="lazy" width="360" height="450" onerror="this.hidden=true"></div>
+                <div class="talk-person-copy"><strong>Danita Samuel Prakash</strong><span>Founder & Product Lead · Cyber Seren</span><small>Speaker bio</small></div>
+                <span class="speaker-profile-toggle" aria-hidden="true"></span>
+                </summary>
+                <div class="speaker-bio"><p>Danita Samuel Prakash is a cybersecurity professional and researcher specialising in human factors, cybersecurity, and human centred security. She holds an MSc in Cyber Security and Human Factors and has over five years of experience across IT and cybersecurity. Her research explores social engineering, AI, and the human factors behind cyber threats. Danita has contributed to academic research and presented on cybersecurity and technology across conferences and professional forums, with her work published in venues including the ACM Digital Library. She is also the founder of Cyber Seren and a 2026 Everywoman in Technology Awards Rising Star winner. </p><a href="https://www.linkedin.com/in/danita-samuel-prakash-3159731b1/" target="_blank" rel="noopener noreferrer">Danita on LinkedIn ↗</a></div>
+              </details>
+            </div>
+          </div>
+          <div class="talk-annotation">
+            <p>We’re taught to keep a human in the loop when AI makes important decisions but what happens when the human becomes the easiest part of the system to manipulate?
+As AI agents gain access to tools, data and real-world actions, attackers don't always need to compromise the agent itself. They can target the person supervising it, exploiting trust, automation bias and deceptive context to influence what the agent is allowed to do.<br>
+This talk explores how social engineering can enter the AI-agent loop, using a practical scenario to show how an attacker can manipulate both machine and human decision-making. We’ll look at why “human approval” isn't automatically a security control, and what developers can do to make agentic workflows more resilient.<br>
+Because sometimes the vulnerability isn't the AI. It's the person who says, “Trust me, bro.”</p>
+          </div>
+        </article>
+		
+		
+		<article class="talk-card">
+          <div class="talk-main">
+            <div class="talk-card-head"><span>Confirmed session</span></div>
+            <h3>Closing the Loop: Building a Shared Memory for Your Organisation's AI </h3>
+            <div class="talk-speakers">
+              <details class="speaker-profile">
+                <summary class="talk-person">
+                <div class="talk-photo"><span aria-hidden="true">SA</span><img src="assets/speaker-shaharia-azam.jpg"
+                    alt="Patrik Zak" loading="lazy" width="360" height="450" onerror="this.hidden=true"></div>
+                <div class="talk-person-copy"><strong>Shaharia Azam</strong><span>Senior Engineer, Applied AI · Trade Republic, ex. HelloFresh | AI Platform & Strategy</span><small>Speaker bio</small></div>
+                <span class="speaker-profile-toggle" aria-hidden="true"></span>
+                </summary>
+                <div class="speaker-bio"><p>Senior Engineer on the Applied AI team at Trade Republic, Berlin. I work on AI platforms and strategy.
+<br><br>
+Before that, I spent four years at HelloFresh, most recently leading GenAI platform work for an 800+ engineer organisation: an internal AI assistant, shared agent infrastructure and AI-assisted code review.
+<br><br>
+My talks cover context engineering, AI governance and GenAI platform teams. I also build open-source AI tooling at Shaharia Lab.</p><a href="https://linkedin.com/in/shaharia" target="_blank" rel="noopener noreferrer">Shaharia on LinkedIn ↗</a></div>
+              </details>
+            </div>
+          </div>
+          <div class="talk-annotation">
+            <p>In most organisations, every AI session starts cold. A coding assistant, a review agent and a support bot each rediscover the same rules, repeat the same mistakes and forget what worked yesterday. The knowledge exists, but it is scattered across prompts, chat histories and people's heads.
+<br><br>
+This talk presents a vendor-neutral pattern for a shared, closed-loop memory. Before a task, every AI tool and agent reads the organisation's relevant knowledge: rules, reusable prompts, learned lessons and past outputs. After the task, it writes back what it learned. Served over an open protocol like MCP, the same memory works with any client, so knowledge compounds across tools, people and agents instead of staying locked in one session.
+<br><br>
+We will cover:<br>
+- The read, act, write-back loop and where it fits in agent workflows<br>
+- Scoping memory by organisation, project and team, with clear ownership and review<br>
+- Keeping memory current: merging, superseding and retiring stale entries<br>
+- Running it as a platform service that helps one person on day one and compounds as a team adopts it<br>
+<br><br>
+One open-source implementation is shown briefly as an example; the pattern works with any stack.</p>
+</div>
+        </article>
+
+<article class="talk-card">
+          <div class="talk-main">
+            <div class="talk-card-head"><span>Confirmed session</span></div>
+            <h3>Surgery on a Brain: Live-Patching Facts in LLMs with ROME</h3>
+            <div class="talk-speakers">
+              <details class="speaker-profile">
+                <summary class="talk-person">
+                <div class="talk-photo"><span aria-hidden="true">MO</span><img src="assets/speaker-matej-olexa.jpg"
+                    alt="Patrik Zak" loading="lazy" width="360" height="450" onerror="this.hidden=true"></div>
+                <div class="talk-person-copy"><strong>Matej Olexa</strong><span>Student Researcher · Brno University of Technology</span><small>Speaker bio</small></div>
+                <span class="speaker-profile-toggle" aria-hidden="true"></span>
+                </summary>
+                <div class="speaker-bio"><p>Master's student specializing in AI & Cybersecurity at Brno University of Technology and student researcher at Security@FIT. My research focuses on detecting knowledge editing techniques in large language models, with a broader interest in model interpretability and AI security. My previous work includes Bluetooth Low Energy security and machine learning-based traffic analysis. My current research is conducted in collaboration with Red Hat Research.</p><a href="https://www.linkedin.com/in/matej-olexa/" target="_blank" rel="noopener noreferrer">Matej on LinkedIn ↗</a></div>
+              </details>
+            </div>
+          </div>
+          <div class="talk-annotation">
+            <p>Updating a specific fact in a 70-billion-parameter model usually feels like using a sledgehammer for heart surgery. Traditional retraining is slow and expensive, often breaking unrelated behaviors in the process. ROME (Rank-One Model Editing) offers a more surgical alternative, treating model weights like a database that can be precisely updated without a full rebuild.
+<br><br>
+This talk is ongoing collaborative research between Red Hat and FIT BUT into the world of AI forensics. Our focus is the security side of model editing: if a fact can be patched in seconds, it can just as easily be poisoned, quietly and without obvious traces. We move past the black box mystery to show how we can locate where a specific fact lives within a transformer's architecture. We will explore the mechanics of knowledge neurons, the risk of unintended side effects like hallucinations, and the serious security implications of malicious fact injections or stealth patching. Through demonstration using our open-source toolkit, we will show how ROME performs precision strikes on state-of-the-art models, highlighting both its efficiency and the scenarios where the method’s assumptions break down. We close by presenting our prototype for detecting edited models, a first step toward catching tampered weights before they reach production.</p>
           </div>
         </article>
       </div>

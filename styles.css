@@ -63,6 +63,21 @@ button,a { -webkit-tap-highlight-color:transparent; }
 .talk-card h3 { max-width:500px; min-height:5.8em; order:2; margin:18px 0 15px; font-size:clamp(20px,2vw,27px); line-height:1.16; }
 .talk-annotation { min-height:144px; order:3; padding:0 0 22px; border-bottom:1px solid var(--line); }
 .talk-annotation p { margin:0; color:#40506a; font-size:15px; line-height:1.6; }
+.talk-description summary { cursor:pointer; list-style:none; }
+.talk-description summary::-webkit-details-marker { display:none; }
+.talk-description-preview { display:-webkit-box; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:3; }
+.talk-description-action { display:flex; width:max-content; align-items:center; gap:9px; margin-top:13px; color:var(--blue); font-size:9px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+.talk-description-toggle { position:relative; width:22px; height:22px; flex:0 0 22px; border:1px solid var(--blue); }
+.talk-description-toggle::before,.talk-description-toggle::after { position:absolute; top:50%; left:50%; width:10px; height:2px; content:""; background:var(--blue); transform:translate(-50%,-50%); transition:transform 160ms ease; }
+.talk-description-toggle::after { transform:translate(-50%,-50%) rotate(90deg); }
+.talk-description[open] .talk-description-toggle::after { transform:translate(-50%,-50%) rotate(0); }
+.talk-description-label-close { display:none; }
+.talk-description[open] .talk-description-preview,.talk-description[open] .talk-description-label-open { display:none; }
+.talk-description[open] .talk-description-label-close { display:inline; }
+.talk-description-full { padding-top:14px; }
+.talk-description-full p+p { margin-top:12px; }
+.talk-description summary:hover .talk-description-action,.talk-description summary:focus-visible .talk-description-action { color:var(--ink); }
+.talk-description summary:focus-visible { outline:2px solid var(--blue); outline-offset:4px; }
 .talk-speakers { display:flex; order:4; align-items:flex-start; gap:14px; margin-top:auto; padding-top:22px; }
 .speaker-profile { min-width:0; flex:1 1 0; background:var(--white); border:1px solid var(--line); }
 .speaker-profile summary { list-style:none; }

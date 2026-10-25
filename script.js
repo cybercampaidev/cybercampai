@@ -42,6 +42,8 @@ function escapeHtml(value) {
 
 function renderSchedule(type) {
   const panel = document.querySelector(`#panel-${type}`);
+  if (!panel || !schedules[type]) return;
+
   panel.innerHTML = schedules[type].map((item, index) => {
     const [time, end, title, meta, speaker, agenda] = item.map((value) =>
       Array.isArray(value) ? value.map(escapeHtml) : escapeHtml(value)
@@ -83,17 +85,19 @@ document.querySelectorAll("[data-schedule]").forEach((tab) => {
 const menuToggle = document.querySelector(".menu-toggle");
 const navigation = document.querySelector("#main-navigation");
 
-menuToggle.addEventListener("click", () => {
-  const open = navigation.classList.toggle("open");
-  menuToggle.setAttribute("aria-expanded", String(open));
-});
-
-navigation.querySelectorAll("a").forEach((link) => {
-  link.addEventListener("click", () => {
-    navigation.classList.remove("open");
-    menuToggle.setAttribute("aria-expanded", "false");
+if (menuToggle && navigation) {
+  menuToggle.addEventListener("click", () => {
+    const open = navigation.classList.toggle("open");
+    menuToggle.setAttribute("aria-expanded", String(open));
   });
-});
+
+  navigation.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      navigation.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+    });
+  });
+}
 
 document.querySelectorAll(".sponsor-deck-link").forEach((link) => {
   link.href = SPONSOR_DECK_URL;
@@ -107,4 +111,46 @@ document.querySelectorAll(".cfp-link").forEach((link) => {
   link.href = CALL_FOR_PAPERS_URL;
 });
 
-document.querySelector("#current-year").textContent = new Date().getFullYear();
+const currentYear = document.querySelector("#current-year");
+if (currentYear) currentYear.textContent = new Date().getFullYear();
+
+// Long talk descriptions keep a short preview and expand only when needed.
+const DESCRIPTION_CHARACTER_LIMIT = 260;
+const DESCRIPTION_PREVIEW_LIMIT = 180;
+
+function makeDescriptionPreview(text, limit) {
+  if (text.length <= limit) return text;
+
+  const shortened = text.slice(0, limit + 1);
+  const lastSpace = shortened.lastIndexOf(" ");
+  const end = lastSpace > limit * 0.75 ? lastSpace : limit;
+  return `${shortened.slice(0, end).trim()}…`;
+}
+
+document.querySelectorAll(".talk-annotation").forEach((annotation) => {
+  const sourceNodes = Array.from(annotation.children);
+  if (!sourceNodes.length) return;
+
+  const text = annotation.textContent.replace(/\s+/g, " ").trim();
+  if (text.length <= DESCRIPTION_CHARACTER_LIMIT) return;
+
+  const details = document.createElement("details");
+  details.className = "talk-description";
+
+  const summary = document.createElement("summary");
+  const preview = document.createElement("p");
+  preview.className = "talk-description-preview";
+  preview.textContent = makeDescriptionPreview(text, DESCRIPTION_PREVIEW_LIMIT);
+
+  const action = document.createElement("span");
+  action.className = "talk-description-action";
+  action.innerHTML = '<span class="talk-description-label-open">Read full description</span><span class="talk-description-label-close">Hide full description</span><span class="talk-description-toggle" aria-hidden="true"></span>';
+
+  const fullDescription = document.createElement("div");
+  fullDescription.className = "talk-description-full";
+  sourceNodes.forEach((node) => fullDescription.append(node.cloneNode(true)));
+
+  summary.append(preview, action);
+  details.append(summary, fullDescription);
+  annotation.replaceChildren(details);
+});
