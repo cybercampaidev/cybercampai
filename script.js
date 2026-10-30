@@ -2,10 +2,8 @@ const SPONSOR_DECK_URL =
   "mailto:info@cybercamp.ai?subject=Call%20for%20sponsors%20%E2%80%94%20Cybercamp.ai";
 const TICKETS_URL =
   "https://luma.com/cybercampai";
-/*
 const CALL_FOR_PAPERS_URL =
-  "mailto:hello@cybercamp.ai?subject=Call%20for%20papers%20%E2%80%94%20Cybercamp.ai";
-*/
+  "https://sessionize.com/cybercampai";
 const schedules = {
   conference: [
     ["08:00", "08:50", "Registration & morning coffee", "Foyer · Community", "Organising team", ["Collect your badge and explore the venue", "Community and partner zone opens", "Coffee before the opening session"]],
