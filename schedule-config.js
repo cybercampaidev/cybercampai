@@ -110,7 +110,7 @@ window.CYBERCAMP_SCHEDULE = {
       id: "agentic-ai-in-threat-intelligence-llms-and-beyond",
       title: "Agentic AI in Threat Intelligence: LLMs and Beyond",
       start: "10:10",
-      end: "10:30",
+      end: "10:40",
       track: "b",
       type: "Talk"
     },
