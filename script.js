@@ -451,6 +451,19 @@ function paragraphHtml(text) {
   return String(text).split(/\n\s*\n/).filter(Boolean).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
 }
 
+function slidesUrl(session) {
+  const configured = session.slides ?? scheduleSettings.slides?.[session.id];
+  if (typeof configured !== "string" || !configured.trim()) return "";
+
+  const value = configured.trim();
+  try {
+    const parsed = new URL(value, window.location.href);
+    return parsed.protocol === "http:" || parsed.protocol === "https:" ? value : "";
+  } catch {
+    return "";
+  }
+}
+
 function getSessionSpeakers(session) {
   return session.speakers.map((entry, index) => {
     const reference = typeof entry === "string" ? { id: entry } : entry;
@@ -480,6 +493,7 @@ function getScheduledSession(id) {
   return {
     ...session,
     ...timing,
+    slides: timing.slides ?? scheduleSettings.slides?.[id] ?? session.slides ?? null,
     kind: timing.type || session.kind || "Talk",
     startMinutes,
     endMinutes,
@@ -581,7 +595,8 @@ function renderSchedule() {
 
     if (item.kind === "Break") {
       const block = document.createElement("div");
-      block.className = `schedule-break schedule-track-${item.track}${conflictClass}`;
+      const compactBreakClass = item.duration <= 15 ? " is-short" : item.duration <= 20 ? " is-compact" : "";
+      block.className = `schedule-break schedule-track-${item.track}${compactBreakClass}${conflictClass}`;
       block.style.gridColumn = column;
       block.style.gridRow = `${row} / span ${span}`;
       block.innerHTML = `<time>${escapeHtml(item.start)}–${end}</time><strong>${escapeHtml(item.title)}</strong>`;
@@ -591,14 +606,22 @@ function renderSchedule() {
 
     const button = document.createElement("button");
     button.type = "button";
-    button.className = `schedule-session schedule-track-${item.track}${item.duration <= 15 ? " is-short" : ""}${conflictClass}`;
+    const compactSessionClass = item.duration <= 15 ? " is-short" : item.duration <= 20 ? " is-compact" : "";
+    button.className = `schedule-session schedule-track-${item.track}${compactSessionClass}${conflictClass}`;
     button.style.gridColumn = column;
     button.style.gridRow = `${row} / span ${span}`;
     button.dataset.sessionId = item.id;
     button.setAttribute("aria-haspopup", "dialog");
     button.setAttribute("aria-label", `${item.start}, ${item.title}, ${speakerNames(item)}`);
+    const slidesAvailable = Boolean(slidesUrl(item));
     button.innerHTML = `
-      <span class="session-meta"><time>${escapeHtml(item.start)}–${end}</time><span>${escapeHtml(item.kind)} · ${item.duration} min</span></span>
+      <span class="session-meta">
+        <time>${escapeHtml(item.start)}–${end}</time>
+        <span class="session-meta-right">
+          <span class="session-kind">${escapeHtml(item.kind)} · ${item.duration} min</span>
+          ${slidesAvailable ? '<span class="session-slides-available">Slides available</span>' : ""}
+        </span>
+      </span>
       <strong>${escapeHtml(item.title)}</strong>
       <span class="session-speaker">${escapeHtml(speakerNames(item))}</span>
     `;
@@ -616,6 +639,23 @@ function openSession(id) {
   sessionDialog.querySelector("#dialog-meta").textContent = `${session.start}–${end} · ${session.kind} · ${session.duration} min`;
   sessionDialog.querySelector("#dialog-title").textContent = session.title;
   sessionDialog.querySelector("#dialog-description").innerHTML = paragraphHtml(session.description);
+  const resourcePanel = sessionDialog.querySelector("#dialog-resources");
+  const slideLink = slidesUrl(session);
+  resourcePanel.innerHTML = slideLink
+    ? `
+      <div>
+        <small>Session resources</small>
+        <strong>Presentation slides</strong>
+      </div>
+      <a class="dialog-slides-link" href="${escapeHtml(slideLink)}" target="_blank" rel="noopener noreferrer">View slides ↗</a>
+    `
+    : `
+      <div>
+        <small>Session resources</small>
+        <strong>Presentation slides</strong>
+      </div>
+      <span class="dialog-slides-unavailable">Slides not provided</span>
+    `;
   sessionDialog.querySelector("#dialog-speakers").innerHTML = getSessionSpeakers(session).map((speaker) => {
     const content = `
       <span>${escapeHtml(initials(speaker.name))}</span>
