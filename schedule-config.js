@@ -189,7 +189,9 @@ window.CYBERCAMP_SCHEDULE = {
     "poison-the-well-real-world-context-poisoning-attacks-against-ai-agents": "https://cybercamp.ai/slides/poison-the-well",
     "ai-pentesting-hype-or-reality-lessons-from-building-an-autonomous-pentesting-solution": "https://cybercamp.ai/slides/ai-pentesting-hype-or-reality.pdf",
     "read-everything-send-nothing-i-gave-an-ai-agent-my-life": "https://cybercamp.ai/slides/read-everything-send-nothing.pdf",
-    "trust-me-bro-social-engineering-the-ai-agent-loop": "https://cybercamp.ai/slides/trust-me-bro.pdf"
+    "trust-me-bro-social-engineering-the-ai-agent-loop": "https://cybercamp.ai/slides/trust-me-bro.pdf",
+    "you-can-t-secure-what-you-don-t-control": "https://cybercamp.ai/slides/you-cant-secure-what-you-dont-control.pdf",
+    "surgery-on-a-brain-live-patching-facts-in-llms-with-rome": "https://cybercamp.ai/slides/surgery-on-brain.pdf"
   },
 
   breaks: [
