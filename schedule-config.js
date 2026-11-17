@@ -115,14 +115,6 @@ window.CYBERCAMP_SCHEDULE = {
       type: "Talk"
     },
     {
-      id: "the-age-of-borg-assimilating-your-perimeter",
-      title: "The Age of Borg",
-      start: "11:00",
-      end: "11:50",
-      track: "b",
-      type: "Talk"
-    },
-    {
       id: "20-minutes-to-a-more-secure-agent",
       title: "20 Minutes to a More Secure Agent",
       start: "13:00",
@@ -182,16 +174,19 @@ window.CYBERCAMP_SCHEDULE = {
 
   slides: {
     "agentic-ai-in-threat-intelligence-llms-and-beyond": "https://cybercamp.ai/slides/agentic-ai-in-threat-intelligence.pdf",
-    "20-minutes-to-a-more-secure-agent": "https://cybercamp.ai/slides/20-minutes-to-a-more-secure-agent.pdf",
+    "20-minutes-to-a-more-secure-agent": "https://cybercamp.ai/slides/securing-ai-agents-workshop.pdf",
     "when-ai-agents-become-the-attacker-identity-hijacking-across-autonomous-workflows": "https://cybercamp.ai/slides/when-ai-agents-become-the-attacker.pdf",
-    "99-accuracy-still-hijacked": "https://cybercamp.ai/slides/99-percent-accuracy-still-hijacked.pdf",
+    "99-accuracy-still-hijacked-lessons-from-building-a-custom-prompt-injection-gate": "https://cybercamp.ai/slides/99-percent-accuracy-still-hijacked.pdf",
     "shadow-it-2-0-kenneth-accidentally-became-a-vendor": "https://cybercamp.ai/slides/shadow-it-2-0.pdf",
     "poison-the-well-real-world-context-poisoning-attacks-against-ai-agents": "https://cybercamp.ai/slides/poison-the-well",
     "ai-pentesting-hype-or-reality-lessons-from-building-an-autonomous-pentesting-solution": "https://cybercamp.ai/slides/ai-pentesting-hype-or-reality.pdf",
     "read-everything-send-nothing-i-gave-an-ai-agent-my-life": "https://cybercamp.ai/slides/read-everything-send-nothing.pdf",
     "trust-me-bro-social-engineering-the-ai-agent-loop": "https://cybercamp.ai/slides/trust-me-bro.pdf",
     "you-can-t-secure-what-you-don-t-control": "https://cybercamp.ai/slides/you-cant-secure-what-you-dont-control.pdf",
-    "surgery-on-a-brain-live-patching-facts-in-llms-with-rome": "https://cybercamp.ai/slides/surgery-on-brain.pdf"
+    "surgery-on-a-brain-live-patching-facts-in-llms-with-rome": "https://cybercamp.ai/slides/surgery-on-brain.pdf",
+    "the-assurance-gap-a-practical-method-for-scoring-ai-model-trust": "https://cybercamp.ai/slides/the-assurance-gap.pdf",
+    "the-unconstrained-machine-why-ai-keeps-behaving-badly-exactly-as-designed": "https://cybercamp.ai/slides/the-unconstrained-machine.pdf",
+    "how-our-good-instincts-let-ai-agents-escape-reality": "https://cybercamp.ai/slides/how-our-good-instincts-let-ai-agents-escape-reality.pdf",
   },
 
   breaks: [

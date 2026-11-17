@@ -197,25 +197,6 @@ const sessions = [
     "kind": "Talk"
   },
   {
-    "id": "the-age-of-borg-assimilating-your-perimeter",
-    "title": "The Age of Borg: Assimilating your perimeter",
-    "description": "I came back from the DEFCON security conference having learned I could point Claude at a conference badge via usb-c like pointing R2D2 at a door. And there is a solid chance AI has surpassed that tech already, as current AI would have 100% rewritten the firmware for the door. A few weeks after returning from DEFCON some unknown entity cut down a bamboo plant on my property. This happened out of camera and visual range. I have no idea who did it, why, or when it happened. I possessed no instrument that could have told me, or so I thought.\n\nWhile staring at a pile of old android phones on my desk, I considered the thought: \"These all generate and receive a variety of signals... I wonder.\" The truth is nobody leaves home without a signal profile, and those signal profiles transit your legal dwelling perimeter every single day. With my new badge hacking data in mind, I dusted off every old phone and security device in the house and had Claude assimilate them into a passive signal perimeter illumination and triangulation system. This talk is about building a framework that illuminates your local signal perimeter in a way that allows you to actually know the proper what, where, and when of interactions with your signal perimeter at a hardware address level using AI and hacker/malware analyst logic.",
-    "speakers": [
-      {
-        "id": "caleb-crable",
-        "name": "Caleb Crable",
-        "role": "Principal AI Red Team Engineer · Ethos",
-        "photo": "assets/speaker-caleb-crable.jpg",
-        "bio": "Caleb is a Principal AI Red Team Engineer at Ethos Life, a publicly traded life insurance company, where he attacks production AI deployments and the identity infrastructure underneath them. Before Ethos he spent four years on the red team at BILL, running authorized engagements against critical financial infrastructure and the company's AI support platform, with a focus on prompt injection, tool abuse, and credential exposure in LLM pipelines.\n\nEarlier in his career Caleb spent three years with Cylance Professional Services delivering full-scope red team engagements for clients in every business sector. Before consulting he was a senior malware analyst at Cylance and The Media Trust, doing deep file analysis, reverse engineering, and incident reconstruction, and serving as a research associate on the whitepaper \"Influence Sketching: Finding Influential Samples in Large-Scale Regressions.\" With over 14 years in offensive security, he brings a practitioner's instinct to every layer of the stack, from physical entry and social engineering to AI red teaming and ML research.",
-        "linkedin": "https://www.linkedin.com/in/dirtywhitehat/"
-      }
-    ],
-    "start": "13:00",
-    "duration": 45,
-    "track": "b",
-    "kind": "Talk"
-  },
-  {
     "id": "read-everything-send-nothing-i-gave-an-ai-agent-my-life",
     "title": "Read Everything, Send Nothing: I Gave an AI Agent My Life",
     "description": "I gave an AI agent my email, calendar and files. It reads what I've granted it, drafts anything, and can't send, book or share a thing without me tapping \"approve\" on my phone.\n\nThat tap is the security model. Not a smarter model, not a better prompt.\n\nThis talk walks through Seneschal, the open-source broker I built and use daily. The agent never holds the Google tokens - the broker does. Reads happen inside a narrow, revocable grant. Anything outside it, and every send, becomes a request with an approval link that expires if I ignore it.\n\nThen the parts that hurt: - The science of why no prompt can make an agent safe from prompt injection - and why the guarantee has to live outside the model.\n\n- Why a hundred steps at 96% each succeed end to end 1.7% of the time, and why that keeps a human in the loop no matter how good the model gets.\n\n- Why anything an agent writes should be append-only, so a bad run is a query to undo, not an archaeology dig.\n\n- Why Google's Restricted-scope wall stops this from becoming a hosted product (and what that tells you about who should hold the keys).\n\n- A live attempt to hijack the agent with a hostile email - and where it stops.\n\nYou'll leave with a permission checklist for any agent that touches real systems: who holds the keys, what it can do alone, what needs a human, and what it can never undo.",
