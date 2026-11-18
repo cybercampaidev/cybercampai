@@ -187,6 +187,8 @@ window.CYBERCAMP_SCHEDULE = {
     "the-assurance-gap-a-practical-method-for-scoring-ai-model-trust": "https://cybercamp.ai/slides/the-assurance-gap.pdf",
     "the-unconstrained-machine-why-ai-keeps-behaving-badly-exactly-as-designed": "https://cybercamp.ai/slides/the-unconstrained-machine.pdf",
     "how-our-good-instincts-let-ai-agents-escape-reality": "https://cybercamp.ai/slides/how-our-good-instincts-let-ai-agents-escape-reality.pdf",
+    "the-scanner-said-clean-we-ran-it-again-stochastic-false-negatives-in-vulnerability-detection": "https://cybercamp.ai/slides/the-scanner-said-clean.pdf",
+    "evolution-of-offensive-ai-from-first-prompt-to-autonomous-hacking": "https://cybercamp.ai/slides/evolution-of-offensive-ai.pdf"
   },
 
   breaks: [
