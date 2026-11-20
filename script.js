@@ -432,17 +432,27 @@ function paragraphHtml(text) {
   return String(text).split(/\n\s*\n/).filter(Boolean).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("");
 }
 
-function slidesUrl(session) {
-  const configured = session.slides ?? scheduleSettings.slides?.[session.id];
+function resourceUrl(configured) {
   if (typeof configured !== "string" || !configured.trim()) return "";
 
   const value = configured.trim();
+  const isRelative = !/^[a-z][a-z0-9+.-]*:/i.test(value) && !value.startsWith("//");
+  if (isRelative) return value;
+
   try {
-    const parsed = new URL(value, window.location.href);
+    const parsed = new URL(value);
     return parsed.protocol === "http:" || parsed.protocol === "https:" ? value : "";
   } catch {
     return "";
   }
+}
+
+function slidesUrl(session) {
+  return resourceUrl(session.slides ?? scheduleSettings.slides?.[session.id]);
+}
+
+function recordingUrl(session) {
+  return resourceUrl(session.recording ?? scheduleSettings.recordings?.[session.id]);
 }
 
 function getSessionSpeakers(session) {
@@ -475,6 +485,7 @@ function getScheduledSession(id) {
     ...session,
     ...timing,
     slides: timing.slides ?? scheduleSettings.slides?.[id] ?? session.slides ?? null,
+    recording: timing.recording ?? scheduleSettings.recordings?.[id] ?? session.recording ?? null,
     kind: timing.type || session.kind || "Talk",
     startMinutes,
     endMinutes,
@@ -593,14 +604,22 @@ function renderSchedule() {
     button.style.gridRow = `${row} / span ${span}`;
     button.dataset.sessionId = item.id;
     button.setAttribute("aria-haspopup", "dialog");
-    button.setAttribute("aria-label", `${item.start}, ${item.title}, ${speakerNames(item)}`);
     const slidesAvailable = Boolean(slidesUrl(item));
+    const recordingAvailable = Boolean(recordingUrl(item));
+    const availableResources = [
+      slidesAvailable ? "slides available" : "",
+      recordingAvailable ? "recording available" : ""
+    ].filter(Boolean).join(", ");
+    button.setAttribute("aria-label", `${item.start}, ${item.title}, ${speakerNames(item)}${availableResources ? `, ${availableResources}` : ""}`);
     button.innerHTML = `
       <span class="session-meta">
         <time>${escapeHtml(item.start)}–${end}</time>
         <span class="session-meta-right">
           <span class="session-kind">${escapeHtml(item.kind)} · ${item.duration} min</span>
-          ${slidesAvailable ? '<span class="session-slides-available">Slides available</span>' : ""}
+          <span class="session-resource-badges">
+            ${slidesAvailable ? '<span class="session-resource-available session-slides-available">Slides available</span>' : ""}
+            ${recordingAvailable ? '<span class="session-resource-available session-recording-available">Recording available</span>' : ""}
+          </span>
         </span>
       </span>
       <strong>${escapeHtml(item.title)}</strong>
@@ -622,21 +641,27 @@ function openSession(id) {
   sessionDialog.querySelector("#dialog-description").innerHTML = paragraphHtml(session.description);
   const resourcePanel = sessionDialog.querySelector("#dialog-resources");
   const slideLink = slidesUrl(session);
-  resourcePanel.innerHTML = slideLink
-    ? `
+  const recordingLink = recordingUrl(session);
+  resourcePanel.innerHTML = `
+    <div class="dialog-resource-item">
       <div>
         <small>Session resources</small>
         <strong>Presentation slides</strong>
       </div>
-      <a class="dialog-slides-link" href="${escapeHtml(slideLink)}" target="_blank" rel="noopener noreferrer">View slides ↗</a>
-    `
-    : `
+      ${slideLink
+        ? `<a class="dialog-resource-link" href="${escapeHtml(slideLink)}" target="_blank" rel="noopener noreferrer">View slides</a>`
+        : '<span class="dialog-resource-unavailable">Slides not provided</span>'}
+    </div>
+    <div class="dialog-resource-item">
       <div>
         <small>Session resources</small>
-        <strong>Presentation slides</strong>
+        <strong>Session recording</strong>
       </div>
-      <span class="dialog-slides-unavailable">Slides not provided</span>
-    `;
+      ${recordingLink
+        ? `<a class="dialog-resource-link dialog-recording-link" href="${escapeHtml(recordingLink)}" target="_blank" rel="noopener noreferrer">Watch recording</a>`
+        : '<span class="dialog-resource-unavailable">Recording not available</span>'}
+    </div>
+  `;
   sessionDialog.querySelector("#dialog-speakers").innerHTML = getSessionSpeakers(session).map((speaker) => {
     const content = `
       <span>${escapeHtml(initials(speaker.name))}</span>

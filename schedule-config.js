@@ -192,6 +192,20 @@ window.CYBERCAMP_SCHEDULE = {
     "ai-security-survival-playbook-a-practical-guide": "https://cybercamp.ai/slides/ai-security-survival-playbook.pdf"
   },
 
+
+  recordings: {
+    "you-can-t-secure-what-you-don-t-control": "https://youtu.be/K5hatMpVICk",
+    "evolution-of-offensive-ai-from-first-prompt-to-autonomous-hacking": "https://youtu.be/CATOuOPIhYg",
+    "poison-the-well-real-world-context-poisoning-attacks-against-ai-agents": "https://youtu.be/U25zdR75mQE",
+    "99-accuracy-still-hijacked-lessons-from-building-a-custom-prompt-injection-gate": "https://youtu.be/MUMq03uV5E8",
+    "the-scanner-said-clean-we-ran-it-again-stochastic-false-negatives-in-vulnerability-detection": "https://youtu.be/rosPi7jq2jc",
+    "shadow-it-2-0-kenneth-accidentally-became-a-vendor": "https://youtu.be/d7WnqNxYOzk",
+    "the-assurance-gap-a-practical-method-for-scoring-ai-model-trust": "https://youtu.be/EBd71q8eGf4",
+    "ai-security-survival-playbook-a-practical-guide": "https://youtu.be/U6fOLmHca9w",
+    "when-ai-agents-become-the-attacker-identity-hijacking-across-autonomous-workflows": "https://youtu.be/GwCiBu8ZOA8",
+    "ai-pentesting-hype-or-reality-lessons-from-building-an-autonomous-pentesting-solution": "https://youtu.be/wAiVJDlYDmk",
+  },
+
   breaks: [
     {
       id: "registration",
